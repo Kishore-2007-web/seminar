@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Play, CheckCircle, Clock, Key, Award, AlertTriangle } from "lucide-react";
+import { Play, CheckCircle, Clock, Award } from "lucide-react";
 
-export function ClassroomBar({ onOpenTeacherKey }) {
+export function ClassroomBar() {
   const [isActive, setIsActive] = useState(false);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
   const [findings, setFindings] = useState("");
@@ -32,7 +32,7 @@ export function ClassroomBar({ onOpenTeacherKey }) {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // Count items by splitting lines or keywords
+  // Count items by splitting lines
   const countDiscoveredErrors = () => {
     if (!findings.trim()) return 0;
     const lines = findings.split("\n").filter((line) => line.trim().length > 3);
@@ -103,9 +103,6 @@ export function ClassroomBar({ onOpenTeacherKey }) {
           <button className="submit-findings-btn" onClick={handleSubmitFindings}>
             <CheckCircle size={16} /> Submit Findings
           </button>
-          <button className="teacher-key-link" onClick={onOpenTeacherKey} title="Teacher Only">
-            <Key size={14} /> Answer Key
-          </button>
         </div>
       </div>
 
@@ -153,21 +150,12 @@ export function ClassroomBar({ onOpenTeacherKey }) {
             </div>
 
             <p className="score-summary">
-              Great job inspecting the UI Disaster Lab! Compare your findings with the Teacher Answer Key below.
+              Great job inspecting the UI Disaster Lab!
             </p>
 
             <div className="score-actions">
               <button 
                 className="btn-primary-score" 
-                onClick={() => {
-                  setScoreModalOpen(false);
-                  onOpenTeacherKey();
-                }}
-              >
-                <Key size={16} /> View Teacher Answer Key
-              </button>
-              <button 
-                className="btn-secondary-score" 
                 onClick={() => setScoreModalOpen(false)}
               >
                 Close & Keep Exploring

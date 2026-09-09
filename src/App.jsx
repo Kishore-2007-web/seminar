@@ -7,18 +7,16 @@ import { ProductCard } from "./components/ProductCard";
 import { ProductModal } from "./components/ProductModal";
 import { CheckoutPage } from "./components/CheckoutPage";
 import { CookieBanner, NewsletterPopup, LiveChatWidget } from "./components/Popups";
-import { TeacherKeyModal } from "./components/TeacherKeyModal";
-import { AlertTriangle, Loader2, Sparkles, CheckCircle2 } from "lucide-react";
+import { AlertTriangle, Loader2 } from "lucide-react";
 import "./App.css";
 
 export default function App() {
   const [activePage, setActivePage] = useState("home");
   const [cartItems, setCartItems] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [teacherKeyOpen, setTeacherKeyOpen] = useState(false);
   const [newsletterOpen, setNewsletterOpen] = useState(false);
   
-  // Fake 3.5s page loading spinner state (Bad Feedback flaw #9)
+  // Fake 2.5s page loading spinner state (Bad Feedback flaw #9)
   const [isLoading, setIsLoading] = useState(true);
   
   // Feedback toast state
@@ -57,7 +55,7 @@ export default function App() {
   return (
     <div className="disaster-lab-app">
       {/* 1. Classroom Activity Control Top Bar */}
-      <ClassroomBar onOpenTeacherKey={() => setTeacherKeyOpen(true)} />
+      <ClassroomBar />
 
       {/* Bad Feedback Flaw: Initial Fake Loading Spinner */}
       {isLoading ? (
@@ -154,12 +152,7 @@ export default function App() {
 
           <LiveChatWidget />
 
-          {/* TEACHER ANSWER KEY MODAL */}
-          {teacherKeyOpen && (
-            <TeacherKeyModal onClose={() => setTeacherKeyOpen(false)} />
-          )}
-
-          {/* FOOTER WITH HIDDEN TEACHER ANSWER KEY LINK */}
+          {/* FOOTER */}
           <footer className="disaster-footer">
             <div className="footer-top-row">
               <span>© 2026 UI Disaster Lab - Created for UI Error Hunt Classroom Activity</span>
@@ -177,16 +170,6 @@ export default function App() {
                   [Cancel Order]
                 </a>
               </span>
-            </div>
-
-            {/* Hidden Teacher Answer Key Link at bottom */}
-            <div className="teacher-key-bottom-container">
-              <button 
-                className="hidden-teacher-key-link" 
-                onClick={() => setTeacherKeyOpen(true)}
-              >
-                🔑 Teacher Answer Key (Click to view intentional UI/UX mistakes list)
-              </button>
             </div>
           </footer>
         </div>
